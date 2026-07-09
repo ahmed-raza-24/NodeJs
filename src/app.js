@@ -21,11 +21,18 @@ app.post("/notes", (req, res)=>{
 })
 
 app.get("/notes",(req, res)=>{
-    res.send("notes created")
-    console.log(req.body)
+    console.log(notes)
+    res.send(notes)
 })
 
+app.delete("/notes/:index",(req, res)=>{
+    
+    delete notes[req.params.index]
+    
+    // console.log(req.params)
 
+    res.send("note deleted")
+})
 
 
 module.exports = app;
