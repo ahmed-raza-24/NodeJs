@@ -1,0 +1,31 @@
+const express = require("express");
+
+const app = express()
+
+app.use(express.json())
+
+const notes = []
+
+app.get("/", (req, res)=>{
+    res.send("hello world");
+})
+
+
+app.post("/notes", (req, res)=>{
+    res.send("note created");
+
+    console.log(req.body)
+    notes.push(req.body)
+    console.log(notes)
+
+})
+
+app.get("/notes",(req, res)=>{
+    res.send("notes created")
+    console.log(req.body)
+})
+
+
+
+
+module.exports = app;

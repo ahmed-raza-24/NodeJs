@@ -2,5 +2,9 @@
   "dependencies": {
     "cat-me": "^1.0.3",
     "express": "^5.2.1"
+  },
+
+  "scripts": {
+    "dev": "npx nodemon server.js"
   }
 }
