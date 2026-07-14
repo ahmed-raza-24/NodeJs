@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express")
 
 const app = express()
 
@@ -6,42 +6,36 @@ app.use(express.json())
 
 const notes = []
 
-app.get("/", (req, res)=>{
-    res.send("hello world");
-})
-
-
 app.post("/notes", (req, res)=>{
-    res.send("note created");
-
-    console.log(req.body)
+    
     notes.push(req.body)
-    console.log(notes)
-
+    res.status(201).json({
+        message: "Note created successfully"
+    })    
 })
 
-app.get("/notes",(req, res)=>{
-    console.log(notes)
-    res.send(notes)
+app.get("/notes",(req,res)=>{
+    res.status(200).json({
+        notes: notes
+    })
 })
 
-app.delete("/notes/:index",(req, res)=>{
-    
+app.delete("/notes/:index",(req,res)=>{
     delete notes[req.params.index]
-    
-    // console.log(req.params)
 
-    res.send("note deleted")
+    res.status(204).json({
+        message: "Note deleted sucessfully"
+    })
 })
 
-app.patch("/notes/:index",(req,res)=>{
-
+app.patch("/notes/:index",(req, res)=>{
     notes[req.params.index].description = req.body.description
 
-    res.send("notes updated sucessfully")
-
+    res.status(200).json({
+        message: "notes updated sucessfully"
+    })
 })
 
 
+module.exports = app
 
-module.exports = app;
