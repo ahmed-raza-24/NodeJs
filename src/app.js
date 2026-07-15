@@ -1,40 +1,47 @@
 const express = require("express")
+const noteModel = require("./models/notes.model")
 
 const app = express()
 
 app.use(express.json())
 
-const notes = []
+// const notes = []
 
-app.post("/notes", (req, res)=>{
+app.post("/notes", async (req, res)=>{
+
+    const {title, description} = req.body
     
-    notes.push(req.body)
+    const note = await noteModel.create({
+        title, description
+    })
+
     res.status(201).json({
-        message: "Note created successfully"
-    })    
-})
-
-app.get("/notes",(req,res)=>{
-    res.status(200).json({
-        notes: notes
+        message: "Note created successfully",
+        note
     })
 })
 
-app.delete("/notes/:index",(req,res)=>{
-    delete notes[req.params.index]
+// app.get("/notes",(req,res)=>{
+//     res.status(200).json({
+//         notes: notes
+//     })
+// })
 
-    res.status(204).json({
-        message: "Note deleted sucessfully"
-    })
-})
+// app.delete("/notes/:index",(req,res)=>{
+//     delete notes[req.params.index]
 
-app.patch("/notes/:index",(req, res)=>{
-    notes[req.params.index].description = req.body.description
+//     res.status(204).json({
+//         message: "Note deleted sucessfully"
+//     })
+// })
 
-    res.status(200).json({
-        message: "notes updated sucessfully"
-    })
-})
+// app.patch("/notes/:index",(req, res)=>{
+//     notes[req.params.index].description = req.body.description
+
+//     res.status(200).json({
+//         message: "notes updated sucessfully"
+//     })
+// })
 
 
 
